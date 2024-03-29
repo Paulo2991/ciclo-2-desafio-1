@@ -27,7 +27,7 @@ function cadastrarPedido(){
 
 	listaPedido.push(pedidos);
 	for(let i = 0; i < listaPedido.length; i++){
-		alert("Pedido cadastrado com sucesso: " + `ID: ${i + 1}` + " . " + `Valor Conta: ${listaPedido[i].valorConta}` + " . " + listaPedido[i].numPessoasMesa + " . " + listaPedido[i].nome);
+		alert("Pedido cadastrado com sucesso: " + `ID: ${i + 1}` + " . " + `Valor Conta: ${listaPedido[i].valorConta}` + " . " + `Numeros De Pessoas Na Mesa: ${listaPedido[i].numPessoasMesa}` + " . " + `Nome: ${listaPedido[i].nome}`);
 	}
 }
 

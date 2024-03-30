@@ -1,5 +1,6 @@
 let listaGorjeta = [];
 let listaPedido = [];
+let listaNomesMesa = [];
 
 function cadastrarPedido(){
 	let numPessoasMesa = parseInt(
@@ -17,7 +18,9 @@ function cadastrarPedido(){
 			);
 	}
 
-	let nome = prompt("Informe o nome: ");
+	let nome = prompt("Informe o nome das pessoas na mesa: ");
+
+	
 
 	const pedidos = {
 		numPessoasMesa:numPessoasMesa,
@@ -27,13 +30,13 @@ function cadastrarPedido(){
 
 	listaPedido.push(pedidos);
 	for(let i = 0; i < listaPedido.length; i++){
-		alert("Pedido cadastrado com sucesso: " + `ID: ${i + 1}` + " . " + `Valor Conta: ${listaPedido[i].valorConta}` + " . " + `Numeros De Pessoas Na Mesa: ${listaPedido[i].numPessoasMesa}` + " . " + `Nome: ${listaPedido[i].nome}`);
+		alert("Pedido cadastrado com sucesso: " + `ID: ${i + 1}` + " . " + `Valor Conta: ${listaPedido[i].valorConta}` + " . " + `Numeros De Pessoas Na Mesa: ${listaPedido[i].numPessoasMesa}` + " . " + `Nome: ${listaPedido[i].nome}` );
 	}
 }
 
 function calcularGorjeta(){
 	while(true){
-		let calcularGorjeta = prompt("Imforme 1 - para sim 2 - para não: ");
+		let calcularGorjeta = prompt("Você quer dar uma gorjeta: Imforme 1 - para sim 2 - para não: ");
 		switch(calcularGorjeta){
 		case "1":
 			alert("Opções de gorjeta:");
@@ -72,20 +75,19 @@ function calcularGorjeta(){
 function calcularPedido() {
 	for(let i = 0; i < listaPedido.length; i++){
 		if(listaPedido[i].length !== 0){
-			calcularGorjeta();
 			while(true) {
 				let metodosPagamento = prompt("1 - Dinheiro - 2 - PIX - 3 - Cartão 4 - Sair: ");
 				switch (metodosPagamento) {
 				case "1":
-					listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.1;
+					listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
 					let calculoValorDinheiro = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
-					alert("O desconto aplicado é: " + listaPedido[i].valorConta);
+					alert("Valor com desconto é: " + listaPedido[i].valorConta);
 					alert("O valor total na conta é: " + calculoValorDinheiro);
 					break;
 				case "2":
-					listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.1;
+					listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
 					let calculoValorPix = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
-					alert("O desconto aplicado é: " + listaPedido[i].valorConta);
+					alert("Valor com desconto é: " + listaPedido[i].valorConta);
 					alert("O valor total na conta é: " + calculoValorPix);
 					break;
 				case "3":
@@ -107,7 +109,7 @@ function calcularPedido() {
 
 function principal(){
 	while(true){
-		let op = prompt("1 - Cadastrar Pedido 2 - Calcular Pedido 3 - Sair: ");
+		let op = prompt("1 - Cadastrar Pedido 2 - Calcular Pedido 3 - Dar Gorjeta 4 - Sair: ");
 		switch(op){
 		case "1":
 			cadastrarPedido();
@@ -116,8 +118,10 @@ function principal(){
 			calcularPedido();
 			break;
 		case "3":
-			alert("Saindo do sistema:");
-			return;
+			calcularGorjeta();
+			break;
+		case "4":
+			return
 		default:
 			alert("Opção Invalida:")
 		}

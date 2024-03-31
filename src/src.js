@@ -18,9 +18,12 @@ function cadastrarPedido(){
 			);
 	}
 
-	let nome = prompt("Informe o nome das pessoas na mesa: ");
-
-	
+	let nome;
+	for(let i = 0; i < numPessoasMesa; i++){
+		nome = prompt(`Informe ${i + 1} o nome das pessoas na mesa: `);
+		listaNomesMesa.push(nome);
+		alert(listaNomesMesa[i]);
+	}
 
 	const pedidos = {
 		numPessoasMesa:numPessoasMesa,
@@ -30,13 +33,13 @@ function cadastrarPedido(){
 
 	listaPedido.push(pedidos);
 	for(let i = 0; i < listaPedido.length; i++){
-		alert("Pedido cadastrado com sucesso: " + `ID: ${i + 1}` + " . " + `Valor Conta: ${listaPedido[i].valorConta}` + " . " + `Numeros De Pessoas Na Mesa: ${listaPedido[i].numPessoasMesa}` + " . " + `Nome: ${listaPedido[i].nome}` );
+		alert("Pedido cadastrado com sucesso: " + `ID: ${i + 1}` + " . " + `Valor Conta: ${listaPedido[i].valorConta}` + " . " + `Numeros De Pessoas Na Mesa: ${listaPedido[i].numPessoasMesa}` + " . " + `Nome Das Pessoas na mesa: ${ listaNomesMesa }` );
 	}
 }
 
 function calcularGorjeta(){
 	while(true){
-		let calcularGorjeta = prompt("Você quer dar uma gorjeta: Imforme 1 - para sim 2 - para não: ");
+		let calcularGorjeta = prompt("Você quer dar uma gorjeta: Informe 1 - para sim 2 - para não: ");
 		switch(calcularGorjeta){
 		case "1":
 			alert("Opções de gorjeta:");
@@ -79,20 +82,43 @@ function calcularPedido() {
 				let metodosPagamento = prompt("1 - Dinheiro - 2 - PIX - 3 - Cartão 4 - Sair: ");
 				switch (metodosPagamento) {
 				case "1":
-					listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
-					let calculoValorDinheiro = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
-					alert("Valor com desconto é: " + listaPedido[i].valorConta);
-					alert("O valor total na conta é: " + calculoValorDinheiro);
+					for(let j = 0; j < listaNomesMesa.length; j++){
+						let opcaoPagamento = prompt(listaNomesMesa[j] + " 1 - Para Individual 2 - Para Cojunto: ");
+						if(opcaoPagamento === "1"){
+							listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
+							alert("O valor total na conta é: " + listaPedido[i].valorConta.toFixed(2));
+						}else{
+							listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
+							let calculoValorDinheiro = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
+							alert("Valor com desconto é: " + listaPedido[i].valorConta.toFixed(2));
+							alert("O valor total na conta é: " + calculoValorDinheiro.toFixed(2));
+						}
+					}
 					break;
 				case "2":
-					listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
-					let calculoValorPix = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
-					alert("Valor com desconto é: " + listaPedido[i].valorConta);
-					alert("O valor total na conta é: " + calculoValorPix);
+					for(let j = 0; j < listaNomesMesa.length; j++){
+						let opcaoPagamento = prompt(listaNomesMesa[j] + " 1 - Para Individual 2 - Para Cojunto: ");
+						if(opcaoPagamento === "1"){
+							listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
+							alert("O valor total na conta é: " + listaPedido[i].valorConta);
+						}else{
+							listaPedido[i].valorConta -= listaPedido[i].valorConta * 0.10;
+							let calculoValorPix = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
+							alert("Valor com desconto é: " + listaPedido[i].valorConta.toFixed(2));
+							alert("O valor total na conta é: " + calculoValorPix.toFixed(2));
+						}
+					}
 					break;
 				case "3":
-					let calculoValorCartao = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
-					alert("O valor total na conta é: " + calculoValorCartao);
+					for(let j = 0; j < listaNomesMesa.length; j++){
+						let opcaoPagamento = prompt(listaNomesMesa[j] + " 1 - Para Individual 2 - Para Cojunto: ");
+						if(opcaoPagamento === "1"){
+							alert("O valor total na conta é: " + listaPedido[i].valorConta.toFixed(2));
+						}else{
+							let calculoValorCartao = listaPedido[i].valorConta / listaPedido[i].numPessoasMesa;
+							alert("O valor total na conta é: " + calculoValorCartao.toFixed(2));
+						}
+					}
 					break;
 				case "4":
 					alert("Saindo Do Menu:");
@@ -121,7 +147,8 @@ function principal(){
 			calcularGorjeta();
 			break;
 		case "4":
-			return
+			alert("Saindo Do Sistema:");
+			return;
 		default:
 			alert("Opção Invalida:")
 		}

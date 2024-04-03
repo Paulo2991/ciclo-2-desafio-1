@@ -11,6 +11,7 @@ function cadastrarPedido(){
 			"Numero De Pessoas Invalidas. Por favor, insira um valor numérico positivo."
 			);
 	}
+
 	let valorConta = parseFloat(prompt("Informe o valor da conta: "));
 	if (isNaN(valorConta) || valorConta < 0) {
 		alert(
@@ -19,10 +20,10 @@ function cadastrarPedido(){
 	}
 
 	let nome;
-	for(let i = 0; i < numPessoasMesa; i++){
+	for(let i = 0; i < numPessoasMesa; i++){	
 		nome = prompt(`Informe ${i + 1} o nome das pessoas na mesa: `);
 		listaNomesMesa.push(nome);
-		alert(listaNomesMesa[i]);
+		alert(listaNomesMesa[i]);	
 	}
 
 	const pedidos = {
@@ -37,37 +38,22 @@ function cadastrarPedido(){
 	}
 }
 
-function calcularGorjeta(){
+function calcularGorjeta(porcentagem){
 	while(true){
-		let calcularGorjeta = prompt("Você quer dar uma gorjeta: Informe 1 - para sim 2 - para não: ");
+		let calcularGorjeta = prompt("Você quer dar uma gorjeta: Informe 1 - para sim 2 - para não 3 - para sair: ");
 		switch(calcularGorjeta){
 		case "1":
-			alert("Opções de gorjeta:");
-			let opGorjeta = ["R$ 2,50", "R$ 5,00", "R$ 8,50"];
-			for(let j = 0;j < opGorjeta.length; j++){
-				alert(`${j + 1}` + ". " + opGorjeta[j]);
+			for(let i = 0; i < listaPedido.length; i++){
+				let calculoGorjeta  = (listaPedido[i].valorConta * porcentagem)/100;
+				listaGorjeta.push(calculoGorjeta);
+				alert("O valor da gorjeta é: " + calculoGorjeta);
 			}
-
-			let opcaoGorjeta = prompt("Informe qual gorjeta você quer da (Digite o número da opção): ");
-			let valorGorjeta;
-			switch(opcaoGorjeta){
-			case "1":
-				valorGorjeta = 2.50;
-				break;
-			case "2":
-				valorGorjeta = 5.00;
-				break;
-			case "3":
-				valorGorjeta = 8.50;
-				break;
-			default:
-				alert("Opção Invalida:");
-				valorGorjeta = 0;
-				break;
-			}
-			listaGorjeta.push(valorGorjeta);
+			break;
 		case "2":
 			listaGorjeta.push(0);
+			return;
+		case "3":
+			alert("Saindo Do Menu:")
 			return;
 		default:
 			alert("Opção Invalida!");
@@ -144,7 +130,14 @@ function principal(){
 			calcularPedido();
 			break;
 		case "3":
-			calcularGorjeta();
+			let porcentagem =  parseFloat(prompt("Informe a porcentagem aplicada para o garçom: "));
+			if (isNaN(porcentagem) || porcentagem < 0) {
+				alert(
+					"Porcentagem Invalida. Por favor, insira um valor numérico positivo."
+					);
+			}else{
+				calcularGorjeta(porcentagem);
+			}
 			break;
 		case "4":
 			alert("Saindo Do Sistema:");
